@@ -1,3 +1,4 @@
+
 import { SocialPlatform } from "@/components/PlatformSelector";
 
 // Note: In a production environment, this API key should be stored securely
@@ -42,18 +43,7 @@ export const generateImageDescriptionWithGroq = async (
           },
           {
             role: "user",
-            content: [
-              {
-                type: "text",
-                text: prompt
-              },
-              {
-                type: "image_url",
-                image_url: {
-                  url: `data:image/jpeg;base64,${base64ImageData}`
-                }
-              }
-            ]
+            content: prompt
           }
         ],
         temperature: 0.4,
