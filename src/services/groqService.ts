@@ -9,10 +9,11 @@ interface GenerateDescriptionParams {
   platform: SocialPlatform;
 }
 
-export const generateImageDescriptionWithGroq = async ({
-  imageData,
-  platform
-}: GenerateDescriptionParams): Promise<string> {
+export const generateImageDescriptionWithGroq = async (
+  params: GenerateDescriptionParams
+): Promise<string> => {
+  const { imageData, platform } = params;
+  
   // Extract base64 data from the data URL
   const base64ImageData = imageData.split(',')[1];
   
@@ -73,4 +74,4 @@ export const generateImageDescriptionWithGroq = async ({
     console.error('Error generating image description with Groq:', error);
     throw error;
   }
-}
+};
