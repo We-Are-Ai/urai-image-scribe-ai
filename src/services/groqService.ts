@@ -1,8 +1,7 @@
-
 import { SocialPlatform } from "@/components/PlatformSelector";
 
 // Note: In a production environment, this API key should be stored securely
-const GROQ_API_KEY = "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";
+const GROQ_API_KEY = "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";
 
 interface GenerateDescriptionParams {
   imageData: string;
