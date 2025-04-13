@@ -27,7 +27,7 @@ export const generateImageDescription = async ({
   const prompt = platformPromptMap[platform];
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${API_KEY}`, {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export const generateImageDescription = async ({
               { text: prompt },
               {
                 inline_data: {
-                  mime_type: "image/jpeg", // Most images will work with this MIME type
+                  mime_type: "image/jpeg",
                   data: base64ImageData
                 }
               }
