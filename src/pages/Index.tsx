@@ -5,8 +5,11 @@ import ImageUploader from '@/components/ImageUploader';
 import PlatformSelector, { SocialPlatform } from '@/components/PlatformSelector';
 import ModelSelector, { AIModel } from '@/components/ModelSelector';
 import DescriptionGenerator from '@/components/DescriptionGenerator';
+import ImageGenerator from '@/components/ImageGenerator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { generateImageDescription } from '@/services/geminiService';
 import { generateImageDescriptionWithGroq } from '@/services/groqService';
+import { generateImageWithGemini, generateImageWithGroq } from '@/services/imageGenerationService';
 import { useToast } from '@/components/ui/use-toast';
 
 const Index = () => {
@@ -16,6 +19,8 @@ const Index = () => {
   const [model, setModel] = useState<AIModel>('gemini');
   const [description, setDescription] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [mode, setMode] = useState<'description' | 'generation'>('description');
+  const [generatedImageUrl, setGeneratedImageUrl] = useState<string | null>(null);
   const { toast } = useToast();
 
   const handleImageUpload = async (imageData: string, file: File) => {
@@ -40,8 +45,9 @@ const Index = () => {
   const handleModelChange = async (newModel: AIModel) => {
     setModel(newModel);
     setDescription(null);
+    setGeneratedImageUrl(null);
     
-    if (uploadedImage) {
+    if (mode === 'description' && uploadedImage) {
       await generateDescription(uploadedImage, platform, newModel);
     }
   };
@@ -77,37 +83,91 @@ const Index = () => {
     }
   };
 
+  const generateImage = async (prompt: string) => {
+    setIsLoading(true);
+    setGeneratedImageUrl(null);
+    
+    try {
+      let result;
+      
+      if (model === 'gemini') {
+        result = await generateImageWithGemini(prompt);
+      } else {
+        result = await generateImageWithGroq(prompt);
+      }
+      
+      setGeneratedImageUrl(result.imageUrl);
+      
+      toast({
+        title: "Image Generated",
+        description: `Successfully generated image using ${model === 'gemini' ? 'U.R LLM Pro' : 'U.R LLM BETA'}.`
+      });
+    } catch (error) {
+      console.error('Error generating image:', error);
+      toast({
+        title: "Error",
+        description: `Failed to generate image using ${model === 'gemini' ? 'U.R LLM Pro' : 'U.R LLM BETA'}. Please try again.`,
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleModeChange = (value: string) => {
+    setMode(value as 'description' | 'generation');
+    setDescription(null);
+    setGeneratedImageUrl(null);
+  };
+
   return (
     <div className="container max-w-3xl py-8 px-4 min-h-screen">
       <Header />
       
       <main>
-        <ImageUploader 
-          onImageUpload={handleImageUpload}
+        <Tabs value={mode} onValueChange={handleModeChange} className="w-full mb-6">
+          <TabsList className="grid grid-cols-2 w-full">
+            <TabsTrigger value="description">Image to Description</TabsTrigger>
+            <TabsTrigger value="generation">Text to Image</TabsTrigger>
+          </TabsList>
+        </Tabs>
+
+        <ModelSelector
+          selectedModel={model}
+          onModelChange={handleModelChange}
           isLoading={isLoading}
         />
         
-        {uploadedImage && (
+        {mode === 'description' ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <ModelSelector
-                selectedModel={model}
-                onModelChange={handleModelChange}
-                isLoading={isLoading}
-              />
-              <PlatformSelector 
-                selectedPlatform={platform}
-                onPlatformChange={handlePlatformChange}
-                isLoading={isLoading}
-              />
-            </div>
-            
-            <DescriptionGenerator
-              imageDescription={description}
-              platform={platform}
+            <ImageUploader 
+              onImageUpload={handleImageUpload}
               isLoading={isLoading}
             />
+            
+            {uploadedImage && (
+              <>
+                <PlatformSelector 
+                  selectedPlatform={platform}
+                  onPlatformChange={handlePlatformChange}
+                  isLoading={isLoading}
+                />
+                
+                <DescriptionGenerator
+                  imageDescription={description}
+                  platform={platform}
+                  isLoading={isLoading}
+                />
+              </>
+            )}
           </>
+        ) : (
+          <ImageGenerator 
+            model={model}
+            isLoading={isLoading}
+            onGenerateImage={generateImage}
+            generatedImageUrl={generatedImageUrl}
+          />
         )}
       </main>
       
