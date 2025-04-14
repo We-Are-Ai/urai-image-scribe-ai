@@ -23,8 +23,8 @@ const ModelSelector = ({ selectedModel, onModelChange, isLoading }: ModelSelecto
           <SelectValue placeholder="Select AI Model" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="gemini">Gemini</SelectItem>
-          <SelectItem value="groq">Groq AI</SelectItem>
+          <SelectItem value="gemini">U.R LLM Pro</SelectItem>
+          <SelectItem value="groq">U.R LLM BETA</SelectItem>
         </SelectContent>
       </Select>
     </div>

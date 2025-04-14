@@ -112,7 +112,7 @@ const Index = () => {
       </main>
       
       <footer className="mt-16 text-center text-sm text-muted-foreground">
-        <p>© {new Date().getFullYear()} URAI - AI-powered social media description generator</p>
+        <p>© {new Date().getFullYear()} U.R LLM - AI-powered social media description generator</p>
       </footer>
     </div>
   );
