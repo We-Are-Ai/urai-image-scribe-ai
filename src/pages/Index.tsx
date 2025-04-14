@@ -11,6 +11,8 @@ import { generateImageDescription } from '@/services/geminiService';
 import { generateImageDescriptionWithGroq } from '@/services/groqService';
 import { generateImageWithGemini, generateImageWithGroq } from '@/services/imageGenerationService';
 import { useToast } from '@/components/ui/use-toast';
+import { Card, CardContent } from '@/components/ui/card';
+import { Instagram } from 'lucide-react';
 
 const Index = () => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -169,6 +171,23 @@ const Index = () => {
             generatedImageUrl={generatedImageUrl}
           />
         )}
+        
+        {/* Social Card */}
+        <Card className="mt-10 bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-purple-500/30">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-center">
+              <a 
+                href="https://instagram.com/nota12sa" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-white hover:text-purple-300 transition-colors"
+              >
+                <Instagram size={24} />
+                <span className="text-lg">@nota12sa</span>
+              </a>
+            </div>
+          </CardContent>
+        </Card>
       </main>
       
       <footer className="mt-16 text-center text-sm text-muted-foreground">
