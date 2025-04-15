@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Copy, Check, Loader2, SwitchHorizontal } from 'lucide-react';
+import { Copy, Check, Loader2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { SocialPlatform } from './PlatformSelector';
 import { Switch } from '@/components/ui/switch';
