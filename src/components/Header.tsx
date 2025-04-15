@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Twitter } from 'lucide-react';
 
 const Header = () => {
   return (
@@ -16,15 +15,6 @@ const Header = () => {
       <p className="mt-2 text-center text-muted-foreground">
         Generate optimized social media descriptions from your images
       </p>
-      <a 
-        href="https://twitter.com/SwitchToMonk" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="flex items-center justify-center gap-2 mt-4 text-primary hover:text-primary/80 transition-colors"
-      >
-        <Twitter className="w-4 h-4" />
-        <span>@SwitchToMonk</span>
-      </a>
     </header>
   );
 };

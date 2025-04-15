@@ -8,7 +8,7 @@ import { generateImageDescription } from '@/services/geminiService';
 import { generateImageDescriptionWithGroq } from '@/services/groqService';
 import { useToast } from '@/components/ui/use-toast';
 import { Card, CardContent } from '@/components/ui/card';
-import { Instagram } from 'lucide-react';
+import { Instagram, Pinterest, Twitter, Link2 } from 'lucide-react';
 
 const Index = () => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -121,18 +121,48 @@ const Index = () => {
           </>
         )}
         
-        {/* Social Card */}
+        {/* Social Links */}
         <Card className="mt-10 bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-purple-500/30">
           <CardContent className="p-6">
-            <div className="flex items-center justify-center">
+            <div className="flex flex-col items-center justify-center space-y-4">
               <a 
-                href="https://instagram.com/nota12sa" 
+                href="https://twitter.com/SwitchToMonk" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-white hover:text-purple-300 transition-colors"
+              >
+                <Twitter size={24} />
+                <span className="text-lg">@SwitchToMonk</span>
+              </a>
+              
+              <a 
+                href="https://instagram.com/switchtomonk" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-white hover:text-purple-300 transition-colors"
               >
                 <Instagram size={24} />
-                <span className="text-lg">@nota12sa</span>
+                <span className="text-lg">@switchtomonk</span>
+              </a>
+              
+              <a 
+                href="https://pinterest.com/switchtomonk" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-white hover:text-purple-300 transition-colors"
+              >
+                <Pinterest size={24} />
+                <span className="text-lg">@switchtomonk</span>
+              </a>
+              
+              <a 
+                href="https://threads.net/@switchtomonk" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-white hover:text-purple-300 transition-colors"
+              >
+                <Link2 size={24} />
+                <span className="text-lg">@switchtomonk</span>
               </a>
             </div>
           </CardContent>
