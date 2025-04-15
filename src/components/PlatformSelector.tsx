@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { Instagram, Twitter, Youtube } from 'lucide-react';
+import { Instagram, Twitter, Youtube, Share2, Ghost } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export type SocialPlatform = 'twitter' | 'instagram' | 'pinterest' | 'youtube';
+export type SocialPlatform = 'twitter' | 'instagram' | 'pinterest' | 'youtube' | 'threads' | 'snapchat';
 
 interface PlatformSelectorProps {
   selectedPlatform: SocialPlatform;
@@ -20,7 +20,7 @@ const PlatformSelector = ({ selectedPlatform, onPlatformChange, isLoading }: Pla
         onValueChange={(value) => onPlatformChange(value as SocialPlatform)}
         className="w-full"
       >
-        <TabsList className="grid grid-cols-4 w-full">
+        <TabsList className="grid grid-cols-6 w-full">
           <TabsTrigger value="twitter" disabled={isLoading} className="flex items-center gap-2">
             <Twitter className="h-4 w-4" />
             <span className="hidden sm:inline">Twitter</span>
@@ -38,6 +38,14 @@ const PlatformSelector = ({ selectedPlatform, onPlatformChange, isLoading }: Pla
           <TabsTrigger value="youtube" disabled={isLoading} className="flex items-center gap-2">
             <Youtube className="h-4 w-4" />
             <span className="hidden sm:inline">YouTube</span>
+          </TabsTrigger>
+          <TabsTrigger value="threads" disabled={isLoading} className="flex items-center gap-2">
+            <Share2 className="h-4 w-4" />
+            <span className="hidden sm:inline">Threads</span>
+          </TabsTrigger>
+          <TabsTrigger value="snapchat" disabled={isLoading} className="flex items-center gap-2">
+            <Ghost className="h-4 w-4" />
+            <span className="hidden sm:inline">Snapchat</span>
           </TabsTrigger>
         </TabsList>
       </Tabs>

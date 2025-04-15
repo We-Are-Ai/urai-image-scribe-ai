@@ -22,7 +22,9 @@ export const generateImageDescriptionWithGroq = async (
     twitter: "Generate a compelling Twitter post description with relevant hashtags for this image. Keep it within 280 characters. Make it engaging, optimize for engagement, and include 3-5 relevant hashtags.",
     instagram: "Create an engaging Instagram caption for this image. Include relevant emojis and 8-10 hashtags at the end. Make it visually appealing with some paragraph breaks.",
     pinterest: "Write a SEO-optimized Pinterest description for this image. Include relevant keywords and 4-6 hashtags. Focus on making it discoverable in Pinterest search.",
-    youtube: "Generate a YouTube video description for this thumbnail image. Include relevant keywords, a short engaging summary, and 3-5 hashtags. Make it SEO friendly."
+    youtube: "Generate a YouTube video description for this thumbnail image. Include relevant keywords, a short engaging summary, and 3-5 hashtags. Make it SEO friendly.",
+    threads: "Create a casual, conversational Threads post about this image. Keep it authentic and engaging, include 2-3 relevant hashtags. Focus on starting discussions.",
+    snapchat: "Write a fun, informal Snapchat caption for this image. Keep it short, playful, and include 1-2 trending hashtags or a catchy phrase. Make it appeal to the Snapchat audience."
   };
   
   const prompt = platformPromptMap[platform];
