@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Copy, Check, Loader2 } from 'lucide-react';
+import { Copy, Check, Loader2, Send } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { SocialPlatform } from './PlatformSelector';
 import { Switch } from '@/components/ui/switch';
@@ -42,6 +42,10 @@ const DescriptionGenerator = ({
   const handlePromptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCustomPrompt(e.target.value);
     onPromptChange?.(e.target.value);
+  };
+
+  const handlePromptSubmit = () => {
+    onPromptChange?.(customPrompt);
   };
 
   const platformTitle = {
@@ -86,14 +90,25 @@ const DescriptionGenerator = ({
         {showPrompt && (
           <div className="space-y-2">
             <Label htmlFor="prompt-input">Additional Context</Label>
-            <Textarea
-              id="prompt-input"
-              placeholder="Add specific details or context to help generate a better description..."
-              value={customPrompt}
-              onChange={handlePromptChange}
-              className="min-h-[100px]"
-              disabled={isLoading}
-            />
+            <div className="flex gap-2">
+              <Textarea
+                id="prompt-input"
+                placeholder="Add specific details or context to help generate a better description..."
+                value={customPrompt}
+                onChange={(e) => setCustomPrompt(e.target.value)}
+                className="min-h-[100px]"
+                disabled={isLoading}
+              />
+              <Button
+                variant="secondary"
+                size="icon"
+                onClick={handlePromptSubmit}
+                disabled={isLoading || !customPrompt.trim()}
+                className="self-start"
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         )}
 
