@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import ImageUploader from '@/components/ImageUploader';
@@ -18,6 +17,7 @@ const Index = () => {
   const [model, setModel] = useState<AIModel>('gemini');
   const [description, setDescription] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [customPrompt, setCustomPrompt] = useState<string>('');
   const { toast } = useToast();
 
   const handleImageUpload = async (imageData: string, file: File) => {
@@ -56,12 +56,14 @@ const Index = () => {
       if (selectedModel === 'gemini') {
         result = await generateImageDescription({
           imageData,
-          platform: selectedPlatform
+          platform: selectedPlatform,
+          customPrompt
         });
       } else {
         result = await generateImageDescriptionWithGroq({
           imageData,
-          platform: selectedPlatform
+          platform: selectedPlatform,
+          customPrompt
         });
       }
       
@@ -76,6 +78,13 @@ const Index = () => {
       setDescription(null);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handlePromptChange = (prompt: string) => {
+    setCustomPrompt(prompt);
+    if (uploadedImage) {
+      generateDescription(uploadedImage, platform, model);
     }
   };
 
@@ -107,6 +116,7 @@ const Index = () => {
               imageDescription={description}
               platform={platform}
               isLoading={isLoading}
+              onPromptChange={handlePromptChange}
             />
           </>
         )}

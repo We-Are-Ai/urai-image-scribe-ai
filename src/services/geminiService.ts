@@ -7,16 +7,16 @@ export type SocialPlatform = 'twitter' | 'instagram' | 'pinterest' | 'youtube' |
 interface GenerateDescriptionParams {
   imageData: string;
   platform: SocialPlatform;
+  customPrompt?: string;
 }
 
 export const generateImageDescription = async ({ 
   imageData, 
-  platform 
+  platform,
+  customPrompt
 }: GenerateDescriptionParams): Promise<string> => {
-  // Extract base64 data from the data URL
   const base64ImageData = imageData.split(',')[1];
   
-  // Create prompt based on the platform
   const platformPromptMap = {
     twitter: "Generate a compelling Twitter post description with relevant hashtags for this image. Keep it within 280 characters. Make it engaging, optimize for engagement, and include 3-5 relevant hashtags.",
     instagram: "Create an engaging Instagram caption for this image. Include relevant emojis and 8-10 hashtags at the end. Make it visually appealing with some paragraph breaks.",
@@ -26,7 +26,11 @@ export const generateImageDescription = async ({
     snapchat: "Write a fun, informal Snapchat caption for this image. Keep it short, playful, and include 1-2 trending hashtags or a catchy phrase. Make it appeal to the Snapchat audience."
   };
   
-  const prompt = platformPromptMap[platform];
+  let prompt = platformPromptMap[platform];
+  
+  if (customPrompt) {
+    prompt = `${prompt} Consider the following additional context: ${customPrompt}`;
+  }
 
   try {
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
