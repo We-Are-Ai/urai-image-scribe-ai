@@ -33,7 +33,9 @@ const DescriptionGenerator = ({ imageDescription, platform, isLoading }: Descrip
     twitter: "Twitter Description",
     instagram: "Instagram Caption",
     pinterest: "Pinterest Description",
-    youtube: "YouTube Description"
+    youtube: "YouTube Description",
+    threads: "Threads Post",
+    snapchat: "Snapchat Caption"
   };
 
   return (
