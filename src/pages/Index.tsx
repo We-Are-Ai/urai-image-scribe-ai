@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import ImageUploader from '@/components/ImageUploader';
@@ -10,6 +9,7 @@ import { generateImageDescriptionWithGroq } from '@/services/groqService';
 import { useToast } from '@/components/ui/use-toast';
 import { Card, CardContent } from '@/components/ui/card';
 import { Instagram, Twitter, Link2 } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const Index = () => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -90,8 +90,11 @@ const Index = () => {
   };
 
   return (
-    <div className="container max-w-3xl py-8 px-4 min-h-screen">
-      <Header />
+    <div className="container max-w-3xl py-8 px-4 min-h-screen transition-colors duration-300">
+      <div className="flex justify-between items-center mb-8">
+        <Header />
+        <ThemeToggle />
+      </div>
       
       <main>
         <ModelSelector
@@ -123,7 +126,7 @@ const Index = () => {
         )}
         
         {/* Social Links */}
-        <Card className="mt-10 bg-gradient-to-br from-purple-500/20 to-blue-500/20 border border-purple-500/30">
+        <Card className="mt-10 dark:glass-dark glass-light">
           <CardContent className="p-6">
             <div className="flex flex-col items-center justify-center space-y-4">
               <a 
