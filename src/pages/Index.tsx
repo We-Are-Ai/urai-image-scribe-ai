@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import ImageUploader from '@/components/ImageUploader';
 import PlatformSelector, { SocialPlatform } from '@/components/PlatformSelector';
@@ -8,8 +10,9 @@ import { generateImageDescription } from '@/services/geminiService';
 import { generateImageDescriptionWithGroq } from '@/services/groqService';
 import { useToast } from '@/components/ui/use-toast';
 import { Card, CardContent } from '@/components/ui/card';
-import { Instagram, Twitter, Link2 } from 'lucide-react';
+import { Instagram, Twitter, Link2, Image, Globe, Youtube } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -90,13 +93,41 @@ const Index = () => {
   };
 
   return (
-    <div className="container max-w-3xl py-8 px-4 min-h-screen transition-colors duration-300">
+    <div className="container max-w-3xl py-8 px-4 min-h-screen transition-colors duration-300 amoled">
       <div className="flex justify-between items-center mb-8">
         <Header />
         <ThemeToggle />
       </div>
       
       <main>
+        <Card className="amoled-card mb-8">
+          <CardContent className="p-6">
+            <h2 className="text-xl font-bold mb-6 gradient-text">Content Summarizer Tools</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Link to="/image-summary">
+                <Button variant="outline" className="w-full h-24 flex flex-col items-center justify-center gap-2 hover:bg-primary/20">
+                  <Image size={24} />
+                  <span>Image Summarizer</span>
+                </Button>
+              </Link>
+              
+              <Link to="/website-summary">
+                <Button variant="outline" className="w-full h-24 flex flex-col items-center justify-center gap-2 hover:bg-primary/20">
+                  <Globe size={24} />
+                  <span>Website Summarizer</span>
+                </Button>
+              </Link>
+              
+              <Link to="/video-summary">
+                <Button variant="outline" className="w-full h-24 flex flex-col items-center justify-center gap-2 hover:bg-primary/20">
+                  <Youtube size={24} />
+                  <span>Video Summarizer</span>
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+        
         <ModelSelector
           selectedModel={model}
           onModelChange={handleModelChange}
@@ -126,19 +157,9 @@ const Index = () => {
         )}
         
         {/* Social Links */}
-        <Card className="mt-10 dark:glass-dark glass-light">
+        <Card className="mt-10 amoled-card">
           <CardContent className="p-6">
             <div className="flex flex-col items-center justify-center space-y-4">
-              <a 
-                href="https://twitter.com/SwitchToMonk" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-white hover:text-purple-300 transition-colors"
-              >
-                <Twitter size={24} />
-                <span className="text-lg">@SwitchToMonk</span>
-              </a>
-              
               <a 
                 href="https://instagram.com/switchtomonk" 
                 target="_blank" 
@@ -180,13 +201,23 @@ const Index = () => {
                 <Link2 size={24} />
                 <span className="text-lg">@switchtomonk</span>
               </a>
+              
+              <a 
+                href="https://twitter.com/SwitchToMonk" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 text-white hover:text-purple-300 transition-colors"
+              >
+                <Twitter size={24} />
+                <span className="text-lg">@SwitchToMonk</span>
+              </a>
             </div>
           </CardContent>
         </Card>
       </main>
       
       <footer className="mt-16 text-center text-sm text-muted-foreground">
-        <p>© {new Date().getFullYear()} U.R LLM - AI-powered social media description generator</p>
+        <p>© {new Date().getFullYear()} U.R LLM - AI-powered content summarizer</p>
       </footer>
     </div>
   );
